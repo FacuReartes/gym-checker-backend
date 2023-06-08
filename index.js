@@ -1,12 +1,17 @@
-import express from "express";
-
+import express from "express"
 const app = express();
+app.use(express.json());
+
+import "./base-orm/sqlite-init.js"
 
 app.get("/", (req, res) => {
-  res.send("Backend inicial Gym Check")
+  res.send("Incial Backend Gym Check")
 });
+
+import usersRouter from "./routes/users.js";
+app.use(usersRouter);
 
 const port = 3000;
 app.listen(port, () => {
-  console.log(`sitio escuchado en el puerto ${port}`)
+  console.log(`site listened in port: ${port}`)
 });
