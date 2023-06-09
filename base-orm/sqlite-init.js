@@ -24,7 +24,8 @@ async function CreateBaseIfNotExists() {
 
     await run(
       `insert into users values
-      (1, 'FacundoReartes', '1234')`
+      (1, 'FacundoReartes', '1234'),
+      (2, 'MiguelSuarez', '1234')`
     )
   };
 
@@ -48,7 +49,10 @@ async function CreateBaseIfNotExists() {
 
     await run(
       `insert into categories values
-      (1, 'Pecho', 1)`
+      (1, 'Pecho', 1),
+      (2, 'Espalda', 1),
+      (3, 'Pecho', 2),
+      (4, 'Hombros', 2)`
     )
   };
 
@@ -78,7 +82,8 @@ async function CreateBaseIfNotExists() {
 
     await run(
       `insert into exercises values
-      (1, 'Press de Banca', 4, 8, 35, 'Aumentar la proxima', 1, 1)`
+      (1, 'Press de Banca', 4, 8, 35, 'Aumentar la proxima', 1, 1),
+      (2, 'Poleas Cruzadas', 4, 8, 15, 'Tecnica', 1, 1)`
     )
   }
 

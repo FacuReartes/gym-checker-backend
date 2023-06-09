@@ -14,6 +14,10 @@ const users = sequelize.define(
     User: {
       type: DataTypes.STRING(20),
       allowNull: false,
+      unique: {
+        args: true,
+        msg: "User already exists",
+      },
       validate: {
         notEmpty: {
           args: true,
@@ -23,10 +27,6 @@ const users = sequelize.define(
           args: [5, 20],
           msg: "Name must be between 5 and 20 length"
         },
-        unique: {
-          args: true,
-          msg: "User already exists",
-        }
       },
     },
     Password: {
@@ -44,6 +44,9 @@ const users = sequelize.define(
       },
     },
   },
+  {
+    timestamps: false,
+  }
 );
 
 // categories model defining
@@ -80,6 +83,9 @@ const categories = sequelize.define(
       },
     },
   },
+  {
+    timestamps: false,
+  }
 );
 
 // exercises model defining
@@ -143,8 +149,11 @@ const exercises = sequelize.define(
         },
       },
     },
+  },
+  {
+    timestamps: false,
   }
-)
+);
 
 export {
   sequelize,
