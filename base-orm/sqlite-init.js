@@ -16,7 +16,7 @@ async function CreateBaseIfNotExists() {
   if (!exists) {
     await run(
       `CREATE table users(
-         IdUsuario INTEGER PRIMARY KEY AUTOINCREMENT, 
+         IdUser INTEGER PRIMARY KEY AUTOINCREMENT, 
          User text NOT NULL UNIQUE, 
          Password text NOT NULL);`
     );
@@ -27,6 +27,60 @@ async function CreateBaseIfNotExists() {
       (1, 'FacundoReartes', '1234')`
     )
   };
+
+  // CATEGORIES TABLE CREATE
+  exists = null
+  res = await get(
+    "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name = 'categories'",
+    []
+  );
+  if (res.contar > 0) exists = true;
+  if (!exists) {
+    await run(
+      `CREATE table categories(
+        IdCategory INTEGER PRIMARY KEY AUTOINCREMENT,
+        Name text NOT NULL,
+        IdUser INTEGER NOT NULL,
+        FOREIGN KEY (IdUser) REFERENCES users(IdUser)
+      );`
+    );
+    console.log("categories table created")
+
+    await run(
+      `insert into categories values
+      (1, 'Pecho', 1)`
+    )
+  };
+
+  // EXERCISES TABLE CREATE
+  exists = null
+  res = await get(
+    "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name = 'exercises'",
+    []
+  );
+  if (res.contar > 0) exists = true;
+  if (!exists) {
+    await run (
+      `CREATE table exercises(
+        IdExercise INTEGER PRIMARY KEY AUTOINCREMENT,
+        Name text NOT NULL,
+        Sets INTEGER,
+        Repetitions INTEGER,
+        Kg INTEGER,
+        Description text,
+        IdCategory INTEGER NOT NULL,
+        IdUser INTEGER NOT NULL,
+        FOREIGN KEY (IdCategory) REFERENCES categories(IdCategory),
+        FOREIGN KEY (IdUser) REFERENCES users(IdUser)
+      );`
+    );
+    console.log("exercises table created")
+
+    await run(
+      `insert into exercises values
+      (1, 'Press de Banca', 4, 8, 35, 'Aumentar la proxima', 1, 1)`
+    )
+  }
 
   close();
 }

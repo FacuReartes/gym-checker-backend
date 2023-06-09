@@ -11,6 +11,12 @@ app.get("/", (req, res) => {
 import usersRouter from "./routes/users.js";
 app.use(usersRouter);
 
+import categoriesRouter from "./routes/categories.js";
+app.use(categoriesRouter);
+
+import exercisesRouter from "./routes/exercises.js";
+app.use(exercisesRouter);
+
 const port = 3000;
 app.listen(port, () => {
   console.log(`site listened in port: ${port}`)
